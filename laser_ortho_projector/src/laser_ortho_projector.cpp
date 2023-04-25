@@ -190,11 +190,10 @@ void LaserOrthoProjector::scanCallback(const sensor_msgs::LaserScan::ConstPtr& s
 
   // **** build and publish projected cloud
 
-  PointCloudT::Ptr cloud = 
-    boost::shared_ptr<PointCloudT>(new PointCloudT());
+  PointCloudT cloud;
 
-  pcl_conversions::toPCL(scan_msg->header, cloud->header);
-  cloud->header.frame_id = ortho_frame_;
+  pcl_conversions::toPCL(scan_msg->header, cloud.header);
+  cloud.header.frame_id = ortho_frame_;
 
   for (unsigned int i = 0; i < scan_msg->ranges.size(); i++)
   {
@@ -209,15 +208,15 @@ void LaserOrthoProjector::scanCallback(const sensor_msgs::LaserScan::ConstPtr& s
       point.x = p.getX();
       point.y = p.getY();
       point.z = 0.0;
-      cloud->points.push_back(point);
+      cloud.points.push_back(point);
     }
   }
 
-  cloud->width = cloud->points.size();
-  cloud->height = 1;
-  cloud->is_dense = true; // no nan's present 
+  cloud.width = cloud.points.size();
+  cloud.height = 1;
+  cloud.is_dense = true; // no nan's present 
 
-  cloud_publisher_.publish (*cloud);
+  cloud_publisher_.publish (cloud);
 }
 
 bool LaserOrthoProjector::getBaseToLaserTf (const sensor_msgs::LaserScan::ConstPtr& scan_msg)
