@@ -170,7 +170,7 @@ class LaserScanMatcher
                                LDP& ldp);
 
     void scanCallback (const sensor_msgs::LaserScan::ConstPtr& scan_msg);
-    void cloudCallback (const PointCloudT::ConstPtr& cloud);
+    void cloudCallback (const PointCloudT& cloud);
 
     void odomCallback(const nav_msgs::Odometry::ConstPtr& odom_msg);
     void imuCallback (const sensor_msgs::Imu::ConstPtr& imu_msg);
