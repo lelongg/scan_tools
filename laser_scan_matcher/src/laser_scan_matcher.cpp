@@ -379,11 +379,11 @@ void LaserScanMatcher::velStmpCallback(const geometry_msgs::TwistStamped::ConstP
   received_vel_ = true;
 }
 
-void LaserScanMatcher::cloudCallback (const PointCloudT::ConstPtr& cloud)
+void LaserScanMatcher::cloudCallback (const PointCloudT& cloud)
 {
   // **** if first scan, cache the tf from base to the scanner
 
-  std_msgs::Header cloud_header = pcl_conversions::fromPCL(cloud->header);
+  std_msgs::Header cloud_header = pcl_conversions::fromPCL(cloud.header);
 
   if (!initialized_)
   {
@@ -638,19 +638,19 @@ bool LaserScanMatcher::newKeyframeNeeded(const tf::Transform& d)
   return false;
 }
 
-void LaserScanMatcher::PointCloudToLDP(const PointCloudT::ConstPtr& cloud,
+void LaserScanMatcher::PointCloudToLDP(const PointCloudT& cloud,
                                              LDP& ldp)
 {
   double max_d2 = cloud_res_ * cloud_res_;
 
   PointCloudT cloud_f;
 
-  cloud_f.points.push_back(cloud->points[0]);
+  cloud_f.points.push_back(cloud.points[0]);
 
-  for (unsigned int i = 1; i < cloud->points.size(); ++i)
+  for (unsigned int i = 1; i < cloud.points.size(); ++i)
   {
     const PointT& pa = cloud_f.points[cloud_f.points.size() - 1];
-    const PointT& pb = cloud->points[i];
+    const PointT& pb = cloud.points[i];
 
     double dx = pa.x - pb.x;
     double dy = pa.y - pb.y;

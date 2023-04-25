@@ -166,7 +166,7 @@ class LaserScanMatcher
 
     void laserScanToLDP(const sensor_msgs::LaserScan::ConstPtr& scan_msg,
                               LDP& ldp);
-    void PointCloudToLDP(const PointCloudT::ConstPtr& cloud,
+    void PointCloudToLDP(const PointCloudT& cloud,
                                LDP& ldp);
 
     void scanCallback (const sensor_msgs::LaserScan::ConstPtr& scan_msg);
